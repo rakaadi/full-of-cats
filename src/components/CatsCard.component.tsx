@@ -1,25 +1,49 @@
-import { ICat } from "../types"
+import { useState } from "react"
+import { CardsContainer } from "./CatsCard.styles"
+import SearchBar from "./SearchBar.component"
+import CatComponent from "./Cat.component"
 
-import { CardsContainer, CatCard, CatDesc } from "./CatsCard.styles"
+import { cat, ICat } from "../types"
 
 export default function CatsCard({ cats }: ICat) {
+    const [words, setWords] = useState<string>("")
+    const [catBreed] = useState(cats)
+    const [filterDisplay, setFilterDisplay] = useState<cat[] | any[]>([])
+
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setWords(event.target.value)
+        let filtered = catBreed.map(({ breeds, id, url }) => {
+            const list = breeds.map(breed => {
+                return {
+                    name: breed.name.toLowerCase(),
+                    breeds: [breed],
+                    id,
+                    url
+                }
+            })
+            return list
+        })
+
+        const oldList = filtered.flat(1)
+        if (words !== "") {
+            let newList = []
+
+            newList = oldList.filter(catBreed =>
+                catBreed.name.includes(words.toLowerCase())
+            )
+
+            setFilterDisplay(newList)
+        } else {
+            setFilterDisplay(oldList)
+        }
+    }
+
     return (
-        <CardsContainer>
-            {
-                cats.map((cat) => (
-                    <CatCard key={cat.id}>
-                        <img src={cat.url} alt="A very cute cat" />
-                        {
-                            cat.breeds.map(breed => (
-                                <CatDesc key={breed.id}>
-                                    <h2>{breed.name}</h2>
-                                    <p>{breed.description}</p>
-                                </CatDesc>
-                            ))
-                        }
-                    </CatCard>
-                ))
-            }
-        </CardsContainer>
+        <>
+            <SearchBar value={words} handleChange={handleChange} />
+            <CardsContainer>
+                <CatComponent cats={words.length < 1 ? cats : filterDisplay} />
+            </CardsContainer>
+        </>
     )
 }
