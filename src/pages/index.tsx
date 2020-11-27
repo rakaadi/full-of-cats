@@ -7,6 +7,7 @@ import CatsCard from "../components/CatsCard.component"
 import { Breed, ICat } from "../types"
 
 export default function Home({ cats }: ICat) {
+
   return (
     <Layout title="Full of Cats">
       <Title>Full <i className="fab fa-yarn"></i>f Cats</Title>

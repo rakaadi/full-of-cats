@@ -15,15 +15,20 @@ export type Breed = {
 }
 
 export interface IBreeds {
-    breeds: Breed[]
+    cats: Breed[]
+}
+
+export type cat = {
+    breeds: Breed[],
+    id: string,
+    url: string
 }
 
 export interface ICat {
-    cats: [
-        {
-            breeds: Breed[],
-            id: string,
-            url: string
-        }
-    ]
+    cats: cat[]
+}
+
+export type SearchProps = {
+    value: string,
+    handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
