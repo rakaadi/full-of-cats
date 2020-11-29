@@ -1,8 +1,10 @@
 import tw, { styled } from "twin.macro"
+import { motion } from "framer-motion"
 
-type infoProps = {
-    open: boolean
-}
+const variants = {
+    visible: { opacity: 1, transition: { duration: 1 } },
+    hidden: { opacity: 0, transition: { duration: 1 } }
+};
 
 export const InfoButton = styled.span`
     ${tw`absolute text-2xl cursor-pointer px-1 rounded-tr-sm rounded-bl-md bg-white bg-opacity-75 right-0 top-0 z-10`}
@@ -12,9 +14,11 @@ export const InfoButton = styled.span`
     }
 `
 
-export const CatDetails = styled.div<infoProps>`
-    ${tw`absolute flex-col font-semibold h-72 w-full justify-center bg-white bg-opacity-50 items-center align-middle text-center p-4 space-y-2`}
-    display: ${props => props.open ? "flex" : "none"};
+export const CatDetails = styled(motion.div).attrs(() => ({
+    initial: "hidden",
+    variants
+}))`
+    ${tw`absolute flex flex-col font-semibold h-72 w-full justify-center bg-white bg-opacity-50 items-center align-middle text-center p-4 space-y-2`}
 
     & > :first-child {
         ${tw`text-xl`}

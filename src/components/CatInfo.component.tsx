@@ -12,7 +12,9 @@ export default function CatInfo({ cats }: IBreeds) {
             <InfoButton onClick={() => setOpen(!open)}><i className="fas fa-info-circle"></i></InfoButton>
             {
                 cats.map(cat => (
-                    <CatDetails key={cat.id} open={open} onClick={() => setOpen(!open)}>
+                    <CatDetails key={cat.id} onClick={() => setOpen(!open)}
+                        animate={open ? "visible" : "hidden"}
+                    >
                         <p>{cat.name}</p>
                         <p>Origin: {cat.origin}</p>
                         <p>Approx weight: {cat.weight.metric} Kg</p>
