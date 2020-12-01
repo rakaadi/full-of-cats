@@ -1,3 +1,5 @@
+![Github Pages Deployment](<https://github.com/rakaadi/furnize-landing-page/workflows/Github%20Pages/badge.svg>)
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
