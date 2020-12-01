@@ -5,9 +5,9 @@ name: Github Pages
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   build:
@@ -20,6 +20,8 @@ jobs:
     steps:
       - name: checkout repository
         uses: actions/checkout@v2
+        with:
+          persist-credentials: false
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
@@ -29,13 +31,12 @@ jobs:
       - name: cache dependencies
         uses: actions/cache@v2
         with:
-          path: |
-            **/node_modules
+          path: ${{ github.workspace }}/.next/cache
           key: ${{ runner.os }}-${{ hashFiles('/yarn.lock') }}
 
       - name: install dependecies
         run: yarn install
-    
+
       - name: build
         run: yarn build
 
